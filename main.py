@@ -35,7 +35,6 @@ VALUES
 
 
 def obtener_url():
-    """Lee DATABASE_URL desde el archivo .env."""
     load_dotenv()
     url = os.getenv("DATABASE_URL")
     if not url:
@@ -45,7 +44,6 @@ def obtener_url():
 
 
 def asegurar_base_de_datos(url):
-    """Crea la base de datos si no existe (conectandose sin elegir base)."""
     datos = make_url(url)
     nombre_bd = datos.database
     if not nombre_bd:
@@ -72,7 +70,6 @@ def asegurar_base_de_datos(url):
 
 
 def generar_personas(fake, cantidad):
-    """Devuelve una lista de diccionarios con datos falsos."""
     personas = []
     for _ in range(cantidad):
         personas.append(
@@ -100,7 +97,6 @@ def main():
 
         with engine.begin() as conn:
             conn.execute(text(SQL_CREAR_TABLA))
-            # Se vacia la tabla para que siempre queden exactamente 100.000
             conn.execute(text(f"TRUNCATE TABLE {NOMBRE_TABLA}"))
 
             insertados = 0
